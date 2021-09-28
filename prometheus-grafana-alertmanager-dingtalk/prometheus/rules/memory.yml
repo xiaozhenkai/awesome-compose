@@ -1,0 +1,43 @@
+groups:
+- name: memory
+  rules:
+  
+  - alert: ApplicationDown
+    expr: up==0
+    for: 30s
+    labels:
+      severity: critical
+      target: "{{$labels.job}}"
+    annotations:
+      summary: "应用服务{{$labels.job}}已停止"
+      description: "{{$labels.instance}} of job {{$labels.job}} 已经停止."
+
+  - alert: Heap_Memory_Usage_Warning
+    expr: (jvm_memory_bytes_used{area="heap"}) * 100 /( jvm_memory_bytes_max{ area="heap"} )> 80
+    for: 1m
+    labels:
+      severity: warning
+      target: "{{$labels.job}}"
+    annotations:
+      summary: "应用 {{$labels.job}} Heap_Memory_Usage > 80%"
+      description: "{{$labels.instance}} of job {{$labels.job}} has been in status [Heap_Usage > 80%] for more than 1m.Current usage ({{humanize $value}}%)"
+
+  - alert: Heap_Memory_Usage_Critical
+    expr: (jvm_memory_bytes_used{area="heap"}) * 100 /( jvm_memory_bytes_max{ area="heap"} )> 80
+    for: 5m
+    labels:
+      severity: critical
+      target: "{{$labels.job}}"
+    annotations:
+      summary: "应用 {{$labels.job}} Heap_Memory_Usage > 80%"
+      description: "{{$labels.instance}} of job {{$labels.job}} has been in status [Heap_Usage > 80%] for more than 5m.Current usage ({{humanize $value}}%)"
+
+  - alert: Heap_Memory_Usage_Critical
+    expr: (jvm_memory_bytes_used{area="heap"}) * 100 /( jvm_memory_bytes_max{ area="heap"} )> 90
+    for: 1m
+    labels:
+      severity: critical
+      target: "{{$labels.job}}"
+    annotations:
+      summary: "应用 {{$labels.job}} Heap_Memory_Usage > 90%"
+      description: "{{$labels.instance}} of job {{$labels.job}} has been in status [Heap_Usage > 90%] for more than 1m.Current usage ({{humanize $value}}%)"

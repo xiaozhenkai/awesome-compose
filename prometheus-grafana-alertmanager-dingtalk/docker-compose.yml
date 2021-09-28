@@ -1,0 +1,45 @@
+version: "3.7"
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-lifecycle'
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=grafana
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+  prometheus-webhook-dingtalk:
+    image: timonwong/prometheus-webhook-dingtalk
+    container_name: prometheus-webhook-dingtalk
+    ports:
+      - 8060:8060
+    restart: unless-stopped
+    volumes:
+      - ./prometheus-webhook-dingtalk:/etc/prometheus-webhook-dingtalk
+  alertmanager:
+    image: quay.io/prometheus/alertmanager
+    container_name: alertmanager
+    ports:
+      - 9093:9093
+    restart: unless-stopped
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+
+volumes:
+  prom_data:
+
