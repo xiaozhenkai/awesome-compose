@@ -4,16 +4,17 @@
 Project structure:
 ```
 .
+├── alertmanager
+│   └── alertmanager.yml
 ├── docker-compose.yml
 ├── grafana
 │   └── datasource.yml
+├── output.jpg
 ├── prometheus
 │   ├── prometheus.yml
 │   └── rules
 │       ├── hoststats.alert.yml
 │       └── memory.yml
-├── alertmanager
-│   └── alertmanager.yml
 ├── prometheus-webhook-dingtalk
 │   ├── config.yml
 │   └── dingtalk
