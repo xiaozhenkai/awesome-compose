@@ -69,11 +69,11 @@ Attaching to prometheus, grafana, alertmanager, prometheus-webhook-dingtalk
 Listing containers must show two containers running and the port mapping as below:
 ```
 $ docker ps
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
-6091a20315de   prom/prometheus                                            "/bin/prometheus --c…"   6 minutes ago   Up 6 minutes   0.0.0.0:9090->9090/tcp
-101aebe33bee   quay.io/prometheus/alertmanager                            "/bin/alertmanager -…"   6 minutes ago   Up 6 minutes   0.0.0.0:9093->9093/tcp
-a32127cde56f   timonwong/prometheus-webhook-dingtalk                      "/bin/prometheus-web…"   6 minutes ago   Up 6 minutes   0.0.0.0:8060->8060/tcp
-6636c57c2e2c   grafana/grafana                                            "/run.sh"                6 minutes ago   Up 6 minutes   0.0.0.0:3000->3000/tcp
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED         STATUS         PORTS                    NAMES
+6091a20315de   prom/prometheus                        "/bin/prometheus --c…"   6 minutes ago   Up 6 minutes   0.0.0.0:9090->9090/tcp   prometheus
+101aebe33bee   quay.io/prometheus/alertmanager        "/bin/alertmanager -…"   6 minutes ago   Up 6 minutes   0.0.0.0:9093->9093/tcp   alertmanager
+a32127cde56f   timonwong/prometheus-webhook-dingtalk  "/bin/prometheus-web…"   6 minutes ago   Up 6 minutes   0.0.0.0:8060->8060/tcp   prometheus-webhook-dingtalk
+6636c57c2e2c   grafana/grafana                        "/run.sh"                6 minutes ago   Up 6 minutes   0.0.0.0:3000->3000/tcp   grafana
 ```
 
 Navigate to `http://localhost:3000` in your web browser and use the login credentials specified in the compose file to access Grafana. It is already configured with prometheus as the default datasource.
