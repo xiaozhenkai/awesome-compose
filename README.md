@@ -4,6 +4,8 @@
 
 - [`Prometheus / Grafana / alertmanager / prometheus-webhook-dingtalk`](https://github.com/xiaozhenkai/awesome-compose/tree/main/prometheus-grafana-alertmanager-dingtalk)
 
+- [`mysql-cluster`](https://github.com/xiaozhenkai/awesome-compose/tree/main/mysql-cluster)
+
 
 
 ## Getting started
