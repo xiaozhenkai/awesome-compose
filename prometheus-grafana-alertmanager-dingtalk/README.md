@@ -104,3 +104,12 @@ a32127cde56f   timonwong/prometheus-webhook-dingtalk  "/bin/prometheus-web…"  
 ```
 $ docker-compose down -v
 ```
+
+
+
+修改Prometheus配置后可以直接用下面命令重新加载配置
+
+```
+curl -X POST http://127.0.0.1:9090/-/reload
+```
+
