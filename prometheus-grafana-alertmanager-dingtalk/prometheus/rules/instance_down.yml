@@ -1,0 +1,12 @@
+groups:
+  - name: Node_alert
+    rules:
+    # Alert for any instance that is unreachable for >1 minutes.
+    - alert: "实例丢失"
+      expr: up == 0
+      for: 60s
+      labels:
+        severity: critical
+      annotations:
+        summary: ">> Prometheus中断了与 {{ $labels.instance }} 的连接"
+        description: ">> {{ $labels.instance }} 已经失联至少 1 分钟了"

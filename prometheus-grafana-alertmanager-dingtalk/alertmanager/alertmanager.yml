@@ -10,7 +10,7 @@ route:
 receivers:
 - name: 'web.hook'
   webhook_configs:
-  - url: 'http://localhost:8060/dingtalk/webhook/send'
+  - url: 'http://prometheus-webhook-dingtalk:8060/dingtalk/webhook/send'
     send_resolved: false
 inhibit_rules:
   - source_match:

@@ -1,27 +1,62 @@
 groups:
 - name: hostStatsAlert
   rules:
-  - alert: hostCpuUsageAlert
-    expr: sum(avg without (cpu)(irate(node_cpu{mode!='idle'}[5m]))) by (instance) > 0.85
-    for: 1m
+  - alert: "CPU使用率超过60%"
+    expr: 100 - ceil(avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) * 100) > 60
+    for: 15m
     labels:
-      severity: page
+      severity: 'warning'
     annotations:
-      summary: "Instance {{ $labels.instance }} CPU usgae high"
-      description: "{{ $labels.instance }} CPU usage above 85% (current value: {{ $value }})"
-  - alert: hostMemUsageAlert
-    expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.85
-    for: 1m
+      summary: "主机CPU使用率超过60%"
+      description: " {{ $value }}%"
+  - alert: "CPU使用率超过80%"
+    expr: 100 - ceil(avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) * 100) > 80
+    for: 5m
     labels:
-      severity: page
+      severity: 'critical'
     annotations:
-      summary: "Instance {{ $labels.instance }} MEM usgae high"
-      description: "{{ $labels.instance }} MEM usage above 85% (current value: {{ $value }})"
-  - alert: hostDiskUsageAlert
-    expr: 100 - (node_filesystem_free_bytes{mountpoint="/",fstype=~"ext4|xfs"} / node_filesystem_size_bytes{mountpoint="/",fstype=~"ext4|xfs"} * 100) >= 90
-    for: 1m
+      summary: "主机CPU使用率超过80%"
+      description: " {{ $value }}%"
+
+  - alert: "内存使用率超过90%"
+    expr: ceil((node_memory_MemTotal_bytes - (node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_byt
+    for: 30s
     labels:
-      severity: page
+      severity: 'warning' 
     annotations:
-      summary: "Instance {{ $labels.instance }} Disk usgae high"
-      description: "{{ $labels.instance }} 根目录使用率超过 90% (current value: {{ $value }})"
+      summary: "主机内存使用率超过90%"
+      description: " {{ $value }}%"
+  - alert: "内存使用率超过95%"
+    expr: ceil((node_memory_MemTotal_bytes - (node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_byt
+    for: 30s
+    labels:
+      severity: 'critical'
+    annotations:
+      summary: "主机内存使用率超过95%"
+      description: " {{ $value }}%"
+
+  - alert: "磁盘使用率超过90%"
+    expr: ceil(node_filesystem_free_bytes{fstype!="tmpfs"} / 1024 / 1024 /1024) < 80 and ceil((1 - (node_filesystem_free
+    for: 30s
+    labels:
+      severity: 'warning'
+    annotations:
+      summary: "磁盘使用率超过90%,且剩余空间小于80GB"
+      description: "{{ $labels.mountpoint }}剩余大小{{ $value }}G"
+  - alert: "磁盘使用率超过95%"
+    expr: ceil(node_filesystem_free_bytes{fstype!="tmpfs"} / 1024 / 1024 /1024) < 80 and ceil((1 - (node_filesystem_free
+    for: 30s
+    labels:
+      severity: 'critical'
+    annotations:
+      summary: "磁盘使用率超过95%,且剩余空间小于80GB"
+      description: "{{ $labels.mountpoint }}剩余大小{{ $value }}G"
+
+  - alert: "TCP连接数大于5000"
+    expr: node_netstat_Tcp_CurrEstab > 6000
+    for: 30s
+    labels:
+      severity: 'critical'
+    annotations:
+      summary: "TCP连接数大于5000"
+      description: " {{ $value }}"

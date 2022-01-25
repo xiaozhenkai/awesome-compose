@@ -5,7 +5,7 @@ global:
 alerting:
   alertmanagers:
   - static_configs:
-    - targets: ['10.210.10.202:9093']
+    - targets: ['alertmanager:9093']  #alertmanager是docker容器的名称，docker ps可以看到
     scheme: http
     timeout: 10s
     api_version: v1
