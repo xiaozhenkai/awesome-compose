@@ -19,7 +19,7 @@ groups:
       description: " {{ $value }}%"
 
   - alert: "内存使用率超过90%"
-    expr: ceil((node_memory_MemTotal_bytes - (node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_byt
+    expr: ceil((node_memory_MemTotal_bytes - (node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes )) / node_memory_MemTotal_bytes * 100) > 90
     for: 30s
     labels:
       severity: 'warning' 
@@ -27,7 +27,7 @@ groups:
       summary: "主机内存使用率超过90%"
       description: " {{ $value }}%"
   - alert: "内存使用率超过95%"
-    expr: ceil((node_memory_MemTotal_bytes - (node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_byt
+    expr: ceil((node_memory_MemTotal_bytes - (node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes )) / node_memory_MemTotal_bytes * 100) > 95
     for: 30s
     labels:
       severity: 'critical'
@@ -36,7 +36,7 @@ groups:
       description: " {{ $value }}%"
 
   - alert: "磁盘使用率超过90%"
-    expr: ceil(node_filesystem_free_bytes{fstype!="tmpfs"} / 1024 / 1024 /1024) < 80 and ceil((1 - (node_filesystem_free
+    expr: ceil(node_filesystem_free_bytes{fstype!="tmpfs"} / 1024 / 1024 /1024) < 80 and ceil((1 - (node_filesystem_free_bytes{fstype!="tmpfs"}) / node_filesystem_size_bytes{fstype!="tmpfs"}) * 100) > 90
     for: 30s
     labels:
       severity: 'warning'
@@ -44,7 +44,7 @@ groups:
       summary: "磁盘使用率超过90%,且剩余空间小于80GB"
       description: "{{ $labels.mountpoint }}剩余大小{{ $value }}G"
   - alert: "磁盘使用率超过95%"
-    expr: ceil(node_filesystem_free_bytes{fstype!="tmpfs"} / 1024 / 1024 /1024) < 80 and ceil((1 - (node_filesystem_free
+    expr: ceil(node_filesystem_free_bytes{fstype!="tmpfs"} / 1024 / 1024 /1024) < 80 and ceil((1 - (node_filesystem_free_bytes{fstype!="tmpfs"}) / node_filesystem_size_bytes{fstype!="tmpfs"}) * 100) > 95
     for: 30s
     labels:
       severity: 'critical'
