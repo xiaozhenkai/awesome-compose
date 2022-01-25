@@ -107,9 +107,23 @@ $ docker-compose down -v
 
 
 
+### 技巧
+
 修改Prometheus配置后可以直接用下面命令重新加载配置
 
 ```
 curl -X POST http://127.0.0.1:9090/-/reload
 ```
 
+
+
+要使用**钉钉机器人**告警需要修改配置`prometheus-webhook-dingtalk/config.yml`
+
+```
+  webhook:
+    url: https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # secret for signature
+    secret: xxxxxxxxxxxxxxx
+```
+
+把`url`和`secret` 改成钉钉自定义机器人里的`Webhook地址`和安全设置里的`加签`里的密钥。
