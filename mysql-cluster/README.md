@@ -80,3 +80,32 @@ e7aadc854cc4   mysql:5.7   "docker-entrypoint.s…"   2 minutes ago   Up 2 minut
 $ docker-compose down -v
 ```
 
+
+
+如何设置快捷登录
+
+```
+$ cat ~/my.cnf
+[mysql]
+user=root
+password=root
+port=3307
+host=127.0.0.1
+
+$ cat ~/.my3308.cnf 
+[mysql]
+user=root
+password=root
+port=3308
+host=127.0.0.1
+
+cat ~/.bashrc
+alias mysql3308='mysql --defaults-file=~/.my3308.cnf'
+
+source ~/.bashrc
+
+#命令行
+mysql     登录3307实例
+mysql3308 登录3308实例
+```
+
