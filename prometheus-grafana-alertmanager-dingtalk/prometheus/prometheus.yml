@@ -12,23 +12,23 @@ alerting:
 rule_files: 
   - "rules/*.yml"
 scrape_configs:
-- job_name: prometheus
-  honor_timestamps: true
-  scrape_interval: 15s
-  scrape_timeout: 10s
-  metrics_path: /metrics
-  scheme: http
-  static_configs:
-  - targets:
-    - localhost:9090
+  - job_name: prometheus
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+    - targets:
+      - localhost:9090
 
-- job_name: 'node_exporter_centos_200'
-  scrape_interval: 5s
-  static_configs:
-    - targets: ['10.210.10.82:9100']
-    - targets: ['10.210.10.55:9100']
-    - targets: ['10.210.10.175:9100']
-    - targets: ['10.210.10.176:9100']
-    - targets: ['10.210.10.81:9100']
-    - targets: ['10.210.10.204:9100']
-    - targets: ['10.210.10.84:9100']
+  - job_name: 'node_exporter_centos_200'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['10.210.10.82:9100']
+      - targets: ['10.210.10.55:9100']
+      - targets: ['10.210.10.175:9100']
+      - targets: ['10.210.10.176:9100']
+      - targets: ['10.210.10.81:9100']
+      - targets: ['10.210.10.204:9100']
+      - targets: ['10.210.10.84:9100']
