@@ -18,9 +18,9 @@ templates:
 ## Targets, previously was known as "profiles"
 targets:
   webhook:
-    url: https://oapi.dingtalk.com/robot/send?access_token=c4aa1a6b23b2967bc3d13a392760154ecfa4bf7238fa4e21b6a1fa04e7efaf2f
+    url: https://oapi.dingtalk.com/robot/send?access_token=fb03f457fb85e327c2d78f06cbe21ea1744cba5a2d12b7d3c64ea442275b43a6
     # secret for signature
-    secret: SECc87b37d48370dff0fbb5d7e3b798159f43e8618c99591e7d0fa1037090cc9139
+    secret: SECc3fbde7d46366360a95625c2f126a746a3884ab8ab0448e9333af352190fbb41
     message:
       title: '{{ template "ding.link.title" . }}'
       text: '{{ template "ding.link.content" . }}'
