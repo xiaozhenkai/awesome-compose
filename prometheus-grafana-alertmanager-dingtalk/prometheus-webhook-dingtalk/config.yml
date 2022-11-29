@@ -8,7 +8,7 @@
 #templates:
 #  - contrib/templates/legacy/template.tmpl
 templates:
-   - /etc/prometheus-webhook-dingtalk/dingtalk/template.tmpl
+   - /etc/prometheus-webhook-dingtalk/dingtalk/dingtalk.tmpl
 ## You can also override default template using `default_message`
 ## The following example to use the 'legacy' template from v0.3.0
 #default_message:
